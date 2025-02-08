@@ -22,9 +22,13 @@ firstVowels cadena = vocales ++ consonantes
     vocales = [c | c <- cadena, esVocal c]
     consonantes = [c | c <- cadena, not (esVocal c)]
 
+-- Normaliza una cadena de texto: convierte a minúsculas y elimina caracteres no alfabéticos
+normaliza :: String -> String
+normaliza = quicksort . map toLower . filter (`elem` ['a' .. 'z'])
+
 -- is anagram
 isAnagram :: String -> String -> Bool
-isAnagram = undefined
+isAnagram cadena1 cadena2 = normaliza cadena1 == normaliza cadena2
 
 -- common suffix
 commonSuffix :: [String] -> String
@@ -40,7 +44,11 @@ ackerman = undefined
 
 -- quicksort
 quicksort :: (Ord a) => [a] -> [a]
-quicksort = undefined
+quicksort [] = [] -- Caso base lista vacía
+quicksort (x : xs) = quicksort menores ++ [x] ++ quicksort mayores
+  where
+    menores = filter (<= x) xs
+    mayores = filter (> x) xs
 
 -- Definición de un árbol binario de búsqueda (BST)
 data BTree a = Empty
