@@ -7,13 +7,20 @@
 
 module Intro where
 
-import Data.Char
+import Data.Char (toLower)
 import Data.List
 import GHC.Generics
 
+-- Determina si un carácter es una vocal
+esVocal :: Char -> Bool
+esVocal caracter = toLower caracter `elem` "aeiou"
+
 -- first vowelsq
 firstVowels :: String -> String
-firstVowels = undefined
+firstVowels cadena = vocales ++ consonantes
+  where
+    vocales = [c | c <- cadena, esVocal c]
+    consonantes = [c | c <- cadena, not (esVocal c)]
 
 -- is anagram
 isAnagram :: String -> String -> Bool
