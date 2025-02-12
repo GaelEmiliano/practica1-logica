@@ -30,9 +30,18 @@ normaliza = quicksort . map toLower . filter (`elem` ['a' .. 'z'])
 isAnagram :: String -> String -> Bool
 isAnagram cadena1 cadena2 = normaliza cadena1 == normaliza cadena2
 
+-- dadas dos cadenas, regresa el prefijo común más largo
+commonPrefix :: String -> String -> String
+commonPrefix [] _ = []
+commonPrefix _ [] = []
+commonPrefix (x : xs) (y : ys)
+  | x == y = x : commonPrefix xs ys
+  | otherwise = []
+
 -- common suffix
 commonSuffix :: [String] -> String
-commonSuffix = undefined
+commonSuffix [] = ""
+commonSuffix cadenas = reverse (foldl1 commonPrefix (map reverse cadenas))
 
 -- intersection 
 interseccion :: (Eq a) => [a] -> [a] -> [a]
