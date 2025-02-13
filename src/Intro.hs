@@ -72,11 +72,18 @@ data BTree a = Empty
 
 -- bTreeInsert
 bTreeInsert :: (Ord a) => a -> BTree a -> BTree a
-bTreeInsert = undefined
+bTreeInsert elemento Empty = Node elemento Empty Empty
+bTreeInsert elemento (Node raiz izquierda derecha)
+  | elemento <= raiz = Node raiz (bTreeInsert elemento izquierda) derecha
+  | otherwise = Node raiz izquierda (bTreeInsert elemento derecha)
 
 -- bTreeSearch
 bTreeSearch :: (Ord a) => a -> BTree a -> Bool
-bTreeSearch = undefined
+bTreeSearch elemento Empty = False
+bTreeSearch elemento (Node raiz izquierda derecha)
+  | elemento == raiz = True
+  | elemento < raiz = bTreeSearch elemento izquierda
+  | otherwise = bTreeSearch elemento derecha
 
 -- bTreeMap
 bTreeMap :: (a -> b) -> BTree a -> BTree b
