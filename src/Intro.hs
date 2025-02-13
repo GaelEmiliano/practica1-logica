@@ -87,11 +87,13 @@ bTreeSearch elemento (Node raiz izquierda derecha)
 
 -- bTreeMap
 bTreeMap :: (a -> b) -> BTree a -> BTree b
-bTreeMap = undefined
+bTreeMap _ Empty = Empty
+bTreeMap lambda (Node raiz izquierda derecha) = Node (lambda raiz) (bTreeMap lambda izquierda) (bTreeMap lambda derecha)
 
 -- bTreeHeight
 bTreeHeight :: BTree a -> Int
-bTreeHeight = undefined
+bTreeHeight Empty = 0
+bTreeHeight (Node _ izquierda derecha) = 1 + max (bTreeHeight izquierda) (bTreeHeight derecha)
 
 -- Ejemplo de arbol
 bTree1 = Node 6 
