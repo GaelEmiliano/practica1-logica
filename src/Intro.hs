@@ -45,7 +45,10 @@ commonSuffix cadenas = reverse (foldl1 commonPrefix (map reverse cadenas))
 
 -- intersection 
 interseccion :: (Eq a) => [a] -> [a] -> [a]
-interseccion = undefined
+interseccion _ [] = []
+interseccion xs (y : ys)
+  | y `elem` xs = y : interseccion xs ys
+  | otherwise = interseccion xs ys
 
 -- ackerman
 ackerman :: Integer -> Integer -> Integer
